@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "name": "Two Sum",
+        "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n                        You may assume that each input would have exactly one solution, and you may not use the same element twice. \n                        You can return the answer in any order.",
+        "difficulty": "Easy",
+        "examples": ["Input: nums = [2,7,11,15], target = 9\n                    Output: [0,1]\n                    Output: Because nums[0] + nums[1] == 9, we return [0, 1].",
+                    "Input: nums = [3,2,4], target = 6\n                    Output: [1,2]",
+                    "Input: nums = [3,3], target = 6\n                    Output: [0,1]"],
+        "solution template": "class Solution:\n                        def twoSum(self, nums: List[int], target: int) -> List[int]:",
+        "followup": "Can you come up with an algorithm that is less than O(n^2) time complexity?",
+        "constraints": ["2 <= nums.length <= 10^4",
+                        "-10^9 <= nums[i] <= 10^9",
+                        "-10^9 <= target <= 10^9",
+                        "Only one valid answer exists."],
+        "approaches": [{"topic": "Brute Force",
+                        "idea": "The brute force approach is simple. Loop through each element xxx and find if there is another value that equals to target−xtarget - xtarget−x.",
+                        "time complexity": "O(n^2)",
+                        "space complexity": "O(1)", 
+                        "implementation": "class Solution:\n                        def twoSum(self, nums: List[int], target: int) -> List[int]:\n                            for i in range(len(nums)):\n                                for j in range(i + 1, len(nums)):\n                                    if nums[j] == target - nums[i]:\n                                        return [i, j]"}, 
+
+                {"topic": "Two-pass Hash Table",
+                "idea": "A simple implementation uses two iterations. In the first iteration, we add each element's value as a key and its index as a value to the hash table. \n                        Then, in the second iteration, we check if each element's complement (target−nums[i]target - nums[i]target−nums[i]) exists in the hash table.\n                         If it does exist, we return current element's index and its complement's index. Beware that the complement must not be nums[i]nums[i]nums[i] itself!.",
+                "time complexity": "O(n)",
+                "space complexity": "O(n)",
+                "implementation": "class Solution:\n                def twoSum(self, nums: List[int], target: int) -> List[int]:\n                    hashmap = {}\n                    for i in range(len(nums)):\n                        hashmap[nums[i]] = i\n                    for i in range(len(nums)):\n                        complement = target - nums[i]\n                        if complement in hashmap and hashmap[complement] != i:\n                            return [i, hashmap[complement]] "
+                },
+                {"topic": "One-pass Hash Table",
+                "idea": "It turns out we can do it in one-pass. While we are iterating and inserting elements into the hash table, we also look back to check if current element's complement already exists in the hash table.\n                         If it exists, we have found a solution and return the indices immediately.",
+                "time complexity": "O(n)",
+                "space complexity": "O(n)",
+                "implementation": "class Solution:\n                def twoSum(self, nums: List[int], target: int) -> List[int]:\n                    hashmap = {}\n                    for i in range(len(nums)):\n                        complement = target - nums[i]\n                        if complement in hashmap:\n                            return [i, hashmap[complement]]\n                        hashmap[nums[i]] = i"
+                }]
+    }
+]
