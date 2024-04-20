@@ -1,0 +1,9 @@
+streamlit
+timeit
+audiorecorder
+streamlit_extras
+openai
+langchain_openai
+langchain_core
+langchain_experimental
+langchain_core
